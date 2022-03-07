@@ -19,7 +19,7 @@ o In the case of a tie in comment_timestamp, order them ascending by comment_id
 CREATE OR REPLACE FUNCTION view_comments( shop_id INTEGER, product_id INTEGER, sell_timestamp TIMESTAMP )
 RETURNS TABLE ( username TEXT, content TEXT, rating INTEGER, comment_timestamp TIMESTAMP )
 AS $$ 
-
+    SELECT ( 'username' , 'content' , 0, 0 )
 $$LANGUAGE SQL;
 
 
@@ -42,7 +42,7 @@ o In the case of a tie in return_rate, order them ascending by product_id
 CREATE OR REPLACE FUNCTION get_most_returned_products_from_manufacturer( manufacturer_id INTEGER, n INTEGER)
 RETURNS TABLE ( product_id INTEGER, product_name TEXT, return_rate NUMERIC(3, 2) )
 AS $$ 
-
+    SELECT ( 1, 'product_name' , 2 )
 $$LANGUAGE SQL;
 
 
@@ -68,6 +68,6 @@ o In the case of a tie in num_negative_indicators, order them ascending by shop_
 CREATE OR REPLACE FUNCTION get_worst_shops( n INTEGER )
 RETURNS TABLE( shop_id INTEGER, shop_name TEXT, num_negative_indicators INTEGER )
 AS $$ 
-
+    SELECT ( 1, 'shop_name' , 1 )
 $$LANGUAGE SQL;
 
