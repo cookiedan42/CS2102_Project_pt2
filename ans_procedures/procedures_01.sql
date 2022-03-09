@@ -37,46 +37,4 @@ CREATE OR REPLACE PROCEDURE place_order(
 AS $$ 
 
 $$LANGUAGE SQL;
-/*
-(2) review( 
-    user_id INTEGER, 
-    order_id INTEGER, 
-    shop_id INTEGER, 
-    product_id INTEGER, 
-    sell_timestamp TIMESTAMP, 
-    content TEXT, 
-    rating INTEGER, 
-    comment_timestamp TIMESTAMP)
 
- Creates a review by the given user for the particular ordered product
-*/
-CREATE OR REPLACE PROCEDURE review( 
-    user_id INTEGER, 
-    order_id INTEGER, 
-    shop_id INTEGER, 
-    product_id INTEGER, 
-    sell_timestamp TIMESTAMP, 
-    content TEXT, 
-    rating INTEGER, 
-    comment_timestamp TIMESTAMP)
-AS $$ 
-
-$$LANGUAGE SQL;
-
-/*
-(3) reply( 
-    user_id INTEGER, 
-    other_comment_id INTEGER, 
-    content TEXT, 
-    reply_timestamp TIMESTAMP )
-
- Creates a reply from user on another comment
-*/
-CREATE OR REPLACE PROCEDURE reply( 
-    user_id INTEGER, 
-    other_comment_id INTEGER, 
-    content TEXT, 
-    reply_timestamp TIMESTAMP )
-AS $$ 
-
-$$LANGUAGE SQL;
