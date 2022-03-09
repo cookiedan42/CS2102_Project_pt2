@@ -18,7 +18,7 @@ BEGIN
 
     IF (EXISTS( SELECT 1 FROM sells WHERE NEW.id = sells.shop_id))
         THEN RETURN NEW;
-    ELSE raise exception 'shop % does not sell anything',NEW.id;
+    ELSE raise exception 'shop % does not sell anything',NEW;
     END IF;
 
 END;
