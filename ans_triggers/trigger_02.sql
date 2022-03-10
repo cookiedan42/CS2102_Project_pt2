@@ -1,7 +1,6 @@
 /*
 Order related:
 (2) An order must involve one or more products from one or more shops.
-order must have some orderline
 */
 
 
@@ -13,10 +12,14 @@ EXECUTE FUNCTION order_minimum_func();
 
 CREATE OR REPLACE FUNCTION order_minimum_func() RETURNS TRIGGER
 AS $$
+DECLARE
+    hasOrderline    BOOLEAN;
 BEGIN 
-    IF (EXISTS( SELECT 1 FROM orderline WHERE NEW.id = orderline.order_id))
+    hasOrderline := EXISTS( SELECT 1 FROM orderline WHERE NEW.id = orderline.order_id);
+    IF (hasOrderline)
         THEN RETURN NEW;
-    ELSE raise exception 'order % does not have any orderlines',NEW;
+    ELSE 
+        raise exception 'order % does not have any orderlines',NEW;
     END IF;
 END;
 $$ LANGUAGE plpgsql;

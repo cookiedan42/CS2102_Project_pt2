@@ -12,10 +12,14 @@ EXECUTE FUNCTION shop_minimum_func();
 
 CREATE OR REPLACE FUNCTION shop_minimum_func() RETURNS TRIGGER 
 AS $$
+DECLARE
+    hasProduct boolean;
 BEGIN 
-    IF (EXISTS( SELECT 1 FROM sells WHERE NEW.id = sells.shop_id))
+    hasProduct:= exists(SELECT * from sells where NEW.id = sells.shop_id);
+    IF (hasProduct)
         THEN RETURN NEW;
-    ELSE raise exception 'shop % does not sell anything',NEW;
+    ELSE 
+        raise exception 'shop % does not sell anything', NEW;
     END IF;
 END;
 $$ LANGUAGE plpgsql;

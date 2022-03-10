@@ -4,8 +4,7 @@ Refund related:
 */
 
 CREATE TRIGGER refund_maximum_quantity_trigger
-BEFORE INSERT ON refund_request /*syntax placeholder*/
-/* <BEFORE AFTER INSTEAD OF> <INSERT/DELETE/UPDATE> ON <TABLE> */
+BEFORE INSERT ON refund_request
 FOR EACH ROW EXECUTE FUNCTION refund_maximum_quantity_func();
 
 CREATE OR REPLACE FUNCTION refund_maximum_quantity_func() RETURNS TRIGGER

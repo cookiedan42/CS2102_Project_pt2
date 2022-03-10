@@ -15,7 +15,6 @@ INSERT into coupon_batch values
 INSERT into issued_coupon values
     (1, 1);
 
-SELECT * FROM coupon_batch;
 
 -- cannot insert
 INSERT INTO orders values
