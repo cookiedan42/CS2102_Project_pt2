@@ -18,7 +18,7 @@ BEGIN
     WHERE review_id = NEW.id
     LIMIT 1;
 
-     IF version_count > 0
+    IF version_count > 0
         THEN return NEW;
     ELSE 
         raise exception 'review cannot have no versions';
