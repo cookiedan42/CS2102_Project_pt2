@@ -22,15 +22,12 @@ BEGIN
         AND NEW.sell_timestamp = orderline.sell_timestamp
     LIMIT 1;
 
-    raise info '%', isValidQuantity;
-
     IF isValidQuantity
         THEN
             return NEW;
     ELSE
         NEW.rejection_reason = 'refund quantity is larger than order quantity';
         NEW.status = 'rejected';
-        -- NEW.handled_date = NEW.request_date;
         NEW.handled_date = CURRENT_DATE;
         NEW.handled_by = 0;
         
