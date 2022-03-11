@@ -30,6 +30,10 @@ AS $$
                 SELECT review_id, max(review_timestamp) as review_timestamp 
                 from review_version 
                 group by review_id) as r
+            join review on review.id = r0.review_id
+        where   review.shop_id = shop_id
+            and review.product_id = product_id
+            and review.sell_timestamp = sell_timestamp
     ),
     correct_reply as (
         select r0.reply_id as id, r0.content, cast(null as Integer) as rating , r0.reply_timestamp as comment_timestamp
@@ -38,6 +42,8 @@ AS $$
                 SELECT reply_id, max(reply_timestamp) as reply_timestamp 
                 from reply_version
                 group by reply_id) as r1
+            join reply on reply.id = r0.reply_id
+        where reply.other_comment_id in (select id from correct_review)
     ),
     correct_comments as (
         SELECT * from correct_review NATURAL JOIN comment
