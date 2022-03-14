@@ -24,5 +24,38 @@ o In the case of a tie in return_rate, order them ascending by product_id
 CREATE OR REPLACE FUNCTION get_most_returned_products_from_manufacturer( manufacturer_id INTEGER, n INTEGER)
 RETURNS TABLE ( product_id INTEGER, product_name TEXT, return_rate NUMERIC(3, 2) )
 AS $$ 
-    SELECT ( 1, 'product_name' , 2 )
+    
+    with 
+    manu_products as (
+        select * from Product 
+        where manufacturer = manufacturer_id
+    ),
+    sold as (
+        select product_id, sum(quantity) as sold_quantity 
+        from orderline 
+        where status = 'delivered'
+            and product_id in (select id from manu_products)
+        group by product_id
+    ),
+    refunded as (
+        select product_id, sum(quantity) as refund_quantity
+        from refund_request
+        where status = 'accepted' 
+            and product_id in (select id from manu_products)
+        group by product_id
+    )
+    select manu_products.id, manu_products.name, 
+        cast(
+            Coalesce(refund_quantity, 0) /  
+            Coalesce(sold_quantity  , 1) 
+            as NUMERIC(3, 2)
+            ) as return_rate
+    from manu_products
+        left join sold on manu_products.id = sold.product_id
+        left join refunded on manu_products.id = refunded.product_id
+    ORDER BY
+        return_rate DESC,
+        manu_products.id ASC
+    LIMIT n
+
 $$LANGUAGE SQL;
