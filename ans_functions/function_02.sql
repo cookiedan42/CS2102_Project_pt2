@@ -46,8 +46,8 @@ AS $$
     )
     select manu_products.id, manu_products.name, 
         cast(
-            Coalesce(refund_quantity, 0) /  
-            Coalesce(sold_quantity  , 1) 
+            Coalesce(refund_quantity, 0.0) /  
+            Coalesce(sold_quantity  , 1.0) 
             as NUMERIC(3, 2)
             ) as return_rate
     from manu_products

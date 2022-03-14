@@ -2,6 +2,9 @@
 product 199 is be unsold
 product name is manufacturer_productNo
 product id also follows the structure
+
+2_3 has all returns
+2_4 has 1 return for 4 purchase
 */
 
 
@@ -204,5 +207,5 @@ insert into refund_request VALUES
     (22221, NULL, 22, 2,21, '2022-01-01 01:02:21', 1, '2022-12-30', 'pending', NUll,NULL),
     (22222, 1, 22, 2,22, '2022-01-01 01:02:22', 1, '2022-12-30', 'being_handled', NULL,NULL),
     (22223, 1, 22, 2,23, '2022-01-01 01:02:23', 1, '2022-12-30', 'accepted', '2022-12-31',NULL),
-    (22224, 1, 22, 2,24, '2022-01-01 01:02:24', 1, '2022-12-30', 'rejected', '2022-12-31','reason')
+    (22224, 1, 22, 2,24, '2022-01-01 01:02:24', 1, '2022-12-30', 'accepted', '2022-12-31',NULL)
 ;

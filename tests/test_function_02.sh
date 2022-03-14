@@ -9,7 +9,7 @@ create database project
 \i ./test_function_02.sql
 ;
 SELECT * from 
-get_most_returned_products_from_manufacturer( 1,3)
+get_most_returned_products_from_manufacturer( 2,5)
 ;
 "
 
