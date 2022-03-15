@@ -1,5 +1,6 @@
 /*
 does EXCEED allow for equal?
+is the data written in orders before or after coupon?
 */
 
 /*
