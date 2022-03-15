@@ -43,9 +43,10 @@ BEGIN
 
 
 -- create the order
+PERFORM setval('orders_id_seq', max(id)) FROM orders;
 INSERT into orders values
     (DEFAULT, user_id, coupon_id, shipping_address, 0);
-Order_ID:= LASTVAL();
+SELECT CURRVAL('orders_id_seq') into Order_ID;
 
 -- for each group of entries
 for i in 1..array_length(shop_ids, 1) loop
