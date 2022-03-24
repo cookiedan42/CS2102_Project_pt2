@@ -17,12 +17,13 @@ original username
  Results should be ordered ascending by the timestamp of the latest version of each comment
 o In the case of a tie in comment_timestamp, order them ascending by comment_id
 */
-CREATE OR REPLACE FUNCTION view_comments( shop_id INTEGER, product_id INTEGER, sell_timestamp TIMESTAMP )
+CREATE OR REPLACE FUNCTION view_comments( input_shop_id INTEGER, input_product_id INTEGER, input_sell_timestamp TIMESTAMP )
 RETURNS TABLE ( username TEXT, content TEXT, rating INTEGER, comment_timestamp TIMESTAMP )
 AS $$ 
 
 
     WITH 
+    RECURSIVE
     correct_review as (
         select r0.review_id as id, r0.content, r0.rating, r0.review_timestamp as comment_timestamp
         from review_version as r0
@@ -31,9 +32,16 @@ AS $$
                 from review_version 
                 group by review_id) as r
             join review on review.id = r0.review_id
-        where   review.shop_id = shop_id
-            and review.product_id = product_id
-            and review.sell_timestamp = sell_timestamp
+        where   review.shop_id = input_shop_id
+            and review.product_id = input_product_id
+            and review.sell_timestamp = input_sell_timestamp
+    ),
+    recursive_reply as (
+        select id from correct_review
+        UNION
+        select reply.id 
+        from reply, recursive_reply
+        where reply.other_comment_id = recursive_reply.id
     ),
     correct_reply as (
         select r0.reply_id as id, r0.content, cast(null as Integer) as rating , r0.reply_timestamp as comment_timestamp
@@ -42,8 +50,9 @@ AS $$
                 SELECT reply_id, max(reply_timestamp) as reply_timestamp 
                 from reply_version
                 group by reply_id) as r1
-            join reply on reply.id = r0.reply_id
-        where reply.other_comment_id in (select id from correct_review)
+            join reply on reply.id = r0.reply_id,
+            recursive_reply
+        where reply.other_comment_id = recursive_reply.id
     ),
     correct_comments as (
         SELECT * from correct_review NATURAL JOIN comment

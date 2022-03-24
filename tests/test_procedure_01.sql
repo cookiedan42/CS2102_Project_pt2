@@ -43,3 +43,21 @@ insert into issued_coupon VALUES
 	(1, 2),
 	(2, 2)
 ;
+
+
+call place_order(1, NULL, TEXT 'shipping_address_01', ARRAY [1, 2], ARRAY [11, 22], 
+ARRAY [TIMESTAMP '2022-01-01 01:01:11', '2022-01-01 01:02:22'], ARRAY [1, 1], ARRAY [10.00, 20.00]);
+
+call place_order(1, 1, TEXT 'shipping_address_01', ARRAY [1, 2], ARRAY [11, 22], 
+ARRAY [TIMESTAMP '2022-01-01 01:01:11', '2022-01-01 01:02:22'], ARRAY [1, 1], ARRAY [10.00, 20.00]);
+
+call place_order(2, NULL, TEXT 'shipping_address_02', ARRAY [1, 1, 1, 1], ARRAY [11, 12, 21, 22], 
+ARRAY [TIMESTAMP '2022-01-01 01:01:11', '2022-01-01 01:01:12', '2022-01-01 01:01:21', '2022-01-01 01:01:22'], ARRAY [1, 1, 1, 1], ARRAY [10.00, 10.00, 10.00, 10.00]);
+
+call place_order(2, 2, TEXT 'shipping_address_02', ARRAY [1, 1, 1, 1], ARRAY [11, 12, 21, 22], 
+ARRAY [TIMESTAMP '2022-01-01 01:01:11', '2022-01-01 01:01:12', '2022-01-01 01:01:21', '2022-01-01 01:01:22'], ARRAY [1, 1, 1, 1], ARRAY [10.00, 10.00, 10.00, 10.00]);
+
+call place_order(2, NULL, TEXT 'shipping_address_02', ARRAY [1, 2, 1, 2], ARRAY [11, 22, 22, 11], 
+ARRAY [TIMESTAMP '2022-01-01 01:01:11', '2022-01-01 01:02:22', '2022-01-01 01:01:22', '2022-01-01 01:02:11'], ARRAY [1, 2, 2, 1], ARRAY [10.00, 20.00, 20.00, 10.00]);
+
+select * from orders;

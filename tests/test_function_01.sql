@@ -1,7 +1,9 @@
 INSERT into users VALUES
 -- id, address, name, account_closed
     (1, 'address_1', 'user_name_1', false),
-    (2, 'address_2', 'this should be deleted user', true);
+    (2, 'address_2', 'this should be deleted user', true),
+    (3, 'address_3', 'user_name_3', false),
+    (4, 'address_3', 'user_name_4', false);
 
 INSERT into shop values 
 -- id, name
@@ -56,7 +58,8 @@ INSERT INTO comment values
     (2111,2), (2112,2), (2211,2), (2212,2),
     -- id is parent, id for replies
     (11115,1), (11125,1), (11210,1), (1122000,1),
-    (11116,2), (11126,2), (221100,2), (221200000,2);
+    (11116,2), (11126,2), (221100,2), (221200000,2),
+    (11117,3), (11127,3), (11137,3), (11147,4);
 
 INSERT INTO review VALUES
 -- id, orderline fk
@@ -75,23 +78,28 @@ Insert into review_version values
     (1111, '2022-01-01 01:01:01', 'review_1_time1', 1),
     (1111, '2022-01-01 01:01:02', 'review_1_time1', 2),
     (2111, '2022-01-01 01:01:03', 'review_2_time1', 3),
-    (2211, '2022-01-01 01:01:04', 'review_2_time1', 4);
+    (2211, '2022-01-01 01:01:04', 'review_2_time1', 4),
+    (1112, '2022-01-01 01:01:05', 'review_1_time1', 5);
 
 Insert into reply values
 -- id, parent
 (11115,1111), (11125,1112),
-(11116,1111), (11126,1112);
+(11116,1111), (11126,1112),
+(11117,11116), (11127,11126),
+(11137,11127), (11147,11127);
 
 insert into reply_version values 
 -- replyID, timestamp,      content
     (11115, '2022-01-01 01:01:11', 'reply_1111_01_v1'),
     (11116, '2022-01-01 01:01:12', 'reply_1111_02_v1'),
     (11116, '2022-01-01 01:01:13', 'reply_1111_02_v2'),
-    (11126, '2022-01-01 01:01:14', 'reply_1112_02');
-
-
-
-
+    (11126, '2022-01-01 01:01:14', 'reply_1112_02'),
+    (11117, '2022-01-01 01:01:15', 'reply_11116_03'),
+    (11127, '2022-01-01 01:01:15', 'reply_11126_03'),
+    (11137, '2022-01-01 01:01:15', 'reply_11127_03_v1'),
+    (11137, '2022-01-01 01:01:16', 'reply_11127_03_v2'),
+    (11147, '2022-01-01 01:01:15', 'reply_11127_04');
 
 
 select * from view_comments(1,1,'2022-01-01 01:01:11');
+select * from view_comments(1,2,'2022-01-01 01:01:12');
