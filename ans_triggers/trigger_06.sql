@@ -24,12 +24,7 @@ BEGIN
         THEN
             return NEW;
     ELSE
-        NEW.rejection_reason = 'refund request for undelivered orderline';
-        NEW.status = 'rejected';
-        NEW.handled_date = CURRENT_DATE;
-        NEW.handled_by = 0;
-        
-        return NEW;
+        raise exception 'refund request for undelivered orderline';
     END IF;
 END;
 $$ LANGUAGE plpgsql;

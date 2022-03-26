@@ -11,9 +11,10 @@ CREATE OR REPLACE FUNCTION refund_maximum_quantity_func() RETURNS TRIGGER
 AS $$
 DECLARE 
     isValidQuantity BOOLEAN;
+    tempQuantity INTEGER;
 BEGIN 
 
-    SELECT orderline.quantity >= NEW.quantity INTO isValidQuantity
+    SELECT orderline.quantity INTO tempQuantity
     FROM orderline
     WHERE NEW.order_id = orderline.order_id
         AND NEW.shop_id = orderline.shop_id
@@ -21,16 +22,19 @@ BEGIN
         AND NEW.sell_timestamp = orderline.sell_timestamp
     LIMIT 1;
 
+    SELECT tempQuantity >= NEW.quantity + coalesce(sum(refund_request.quantity), 0) INTO isValidQuantity
+    FROM refund_request
+    WHERE NEW.order_id = refund_request.order_id
+        AND NEW.shop_id = refund_request.shop_id
+        AND NEW.product_id = refund_request.product_id
+        AND NEW.sell_timestamp = refund_request.sell_timestamp
+        AND refund_request.status <> 'rejected';
+
     IF isValidQuantity
         THEN
             return NEW;
     ELSE
-        NEW.rejection_reason = 'refund quantity is larger than order quantity';
-        NEW.status = 'rejected';
-        NEW.handled_date = CURRENT_DATE;
-        NEW.handled_by = 0;
-        
-        return NEW;
+        raise exception 'refund quantity is larger than order quantity';
     END IF;
 END;
 $$ LANGUAGE plpgsql;

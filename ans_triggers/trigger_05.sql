@@ -24,12 +24,7 @@ BEGIN
         THEN
             return NEW;
     ELSE
-        NEW.rejection_reason = 'refund request made more than 30 days after delivery';
-        NEW.status = 'rejected';
-        NEW.handled_date = CURRENT_DATE;
-        NEW.handled_by = 0;
-        
-        return NEW;
+        raise exception 'refund request made more than 30 days after delivery';
     END IF;
 END;
 $$ LANGUAGE plpgsql;

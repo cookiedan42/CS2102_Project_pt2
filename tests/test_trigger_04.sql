@@ -30,10 +30,25 @@ INSERT into orderline values
 
 -- cannot insert
 INSERT INTO refund_request values
-    (1,NULL,1,1,1,'2022-01-01 01:01:01',2,'2022-01-01','pending',NULL,NULL);
+    (DEFAULT,NULL,1,1,1,'2022-01-01 01:01:01',2,'2022-01-01','pending',NULL,NULL);
+SELECT * from refund_request;
+
+-- cannot insert
+INSERT INTO refund_request values
+    (DEFAULT,0,1,1,1,'2022-01-01 01:01:02',2,'2022-01-01','rejected','2022-01-01','rejection_reason');
 SELECT * from refund_request;
 
 -- can insert
 INSERT INTO refund_request values
-    (2,NULL,1,1,1,'2022-01-01 01:01:02',1,'2022-01-01','pending',NULL,NULL);
+    (DEFAULT,0,1,1,1,'2022-01-01 01:01:02',1,'2022-01-01','rejected','2022-01-01','rejection_reason');
+SELECT * from refund_request;
+
+-- can insert
+INSERT INTO refund_request values
+    (DEFAULT,NULL,1,1,1,'2022-01-01 01:01:02',1,'2022-01-01','pending',NULL,NULL);
+SELECT * from refund_request;
+
+-- cannot insert
+INSERT INTO refund_request values
+    (DEFAULT,NULL,1,1,1,'2022-01-01 01:01:02',1,'2022-01-01','pending',NULL,NULL);
 SELECT * from refund_request;
