@@ -60,5 +60,6 @@ ARRAY [TIMESTAMP '2022-01-01 01:01:11', '2022-01-01 01:01:12', '2022-01-01 01:01
 call place_order(2, NULL, TEXT 'shipping_address_02', ARRAY [1, 2, 1, 2], ARRAY [11, 22, 22, 11], 
 ARRAY [TIMESTAMP '2022-01-01 01:01:11', '2022-01-01 01:02:22', '2022-01-01 01:01:22', '2022-01-01 01:02:11'], ARRAY [1, 2, 2, 1], ARRAY [10.00, 20.00, 20.00, 10.00]);
 
-select * from orders;
 select * from sells;
+select * from orders;
+select * from orderline;
