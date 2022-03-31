@@ -10,6 +10,10 @@ create database project
 ;
 select * from get_worst_shops(10)
 ;
+select * from get_worst_shops(0)
+;
+select * from get_worst_shops(5)
+;
 "
 
 printf "$BASE" | psql

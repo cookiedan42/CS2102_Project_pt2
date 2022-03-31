@@ -1,71 +1,123 @@
-INSERT into users VALUES
-    (1, 'user_address_1', 'user_name_1', FALSE);
-INSERT into category values 
-    (1, 'category_1',NULL);
-INSERT into employee values
-    (0, 'automated',0);
-INSERT into manufacturer values 
-    (1, 'manufacturer_1','country_1');
-INSERT into product values 
-    (1, 'name', 'desc', 1, 1);
-INSERT into shop values 
-    (1, '1');
-INSERT into coupon_batch values
-    (1, '2022-01-01', '2022-01-01', 1, 1);
-INSERT into issued_coupon values
-    (1, 1);
-INSERT into orders values 
-    (1,1,1,'shipping address',1);  
-
-INSERT into sells values 
-    (1, 1, '2022-01-01 01:01:01', 1, 1),
-    (1, 1, '2022-01-01 01:01:02', 1, 1),
-    (1, 1, '2022-01-01 01:01:03', 1, 1),
-    (1, 1, '2022-01-01 01:01:04', 1, 1);
-
-INSERT into orderline values 
-    (1,1,1,'2022-01-01 01:01:01',1,1,'shipped','2022-01-01'),
-    (1,1,1,'2022-01-01 01:01:02',1,1,'shipped','2022-01-01'),
-    (1,1,1,'2022-01-01 01:01:03',1,1,'shipped','2022-01-01'),
-    (1,1,1,'2022-01-01 01:01:04',1,1,'shipped','2022-01-01');
+INSERT INTO USERS
+VALUES (1, 'user_address_1', 'user_name_1', FALSE);
 
 
+INSERT INTO CATEGORY
+VALUES (1, 'category_1',NULL);
+
+
+INSERT INTO EMPLOYEE
+VALUES (0, 'automated',0);
+
+
+INSERT INTO MANUFACTURER
+VALUES (1, 'manufacturer_1','country_1');
+
+
+INSERT INTO PRODUCT
+VALUES (1, 'name', 'desc', 1, 1);
+
+
+INSERT INTO SHOP
+VALUES (1, '1');
+
+
+INSERT INTO COUPON_BATCH
+VALUES (1, '2022-01-01', '2022-01-01', 1, 1);
+
+
+INSERT INTO ISSUED_COUPON
+VALUES (1, 1);
+
+
+INSERT INTO ORDERS
+VALUES (1,1,1,'shipping address',1);
+
+
+INSERT INTO SELLS
+VALUES (1, 1, '2022-01-01 01:01:01', 1, 1),
+							(1, 1, '2022-01-01 01:01:02', 1, 1),
+							(1, 1, '2022-01-01 01:01:03', 1, 1),
+							(1, 1, '2022-01-01 01:01:04', 1, 1);
+
+
+INSERT INTO ORDERLINE
+VALUES (1,1,1,'2022-01-01 01:01:01',1,1,'shipped','2022-01-01'),
+							(1,1,1,'2022-01-01 01:01:02',1,1,'shipped','2022-01-01'),
+							(1,1,1,'2022-01-01 01:01:03',1,1,'shipped','2022-01-01'),
+							(1,1,1,'2022-01-01 01:01:04',1,1,'shipped','2022-01-01');
 
 -- cannot insert no version
 BEGIN TRANSACTION;
-INSERT into comment values
-    (1,1);
-INSERT into reply values
-    (1,1);
-COMMIT;
-select * from comment;
-select * from reply;
 
+
+INSERT INTO COMMENT
+VALUES (1,1);
+
+
+INSERT INTO REPLY
+VALUES (1,1);
+
+
+COMMIT;
+
+
+SELECT *
+FROM COMMENT;
+
+
+SELECT *
+FROM REPLY;
 
 -- can insert 1 version
 BEGIN TRANSACTION;
-INSERT into comment values
-    (2,1);
-INSERT into reply values
-    (2,2);
-INSERT into reply_version values
-    (2,'2022-01-01 01:01:01','text');
+
+
+INSERT INTO COMMENT
+VALUES (2,1);
+
+
+INSERT INTO REPLY
+VALUES (2,2);
+
+
+INSERT INTO REPLY_VERSION
+VALUES (2,'2022-01-01 01:01:01','text');
+
+
 COMMIT;
 
-select * from comment;
-select * from reply;
 
+SELECT *
+FROM COMMENT;
+
+
+SELECT *
+FROM REPLY;
 
 -- can insert 2 version
 BEGIN TRANSACTION;
-INSERT into comment values
-    (3,1);
-INSERT into reply values
-    (3,3);
-INSERT into reply_version values
-    (3,'2022-01-01 01:01:01','text'),
-    (3,'2022-01-01 01:01:02','text');
+
+
+INSERT INTO COMMENT
+VALUES (3,1);
+
+
+INSERT INTO REPLY
+VALUES (3,3);
+
+
+INSERT INTO REPLY_VERSION
+VALUES (3,'2022-01-01 01:01:01','text'),
+							(3,'2022-01-01 01:01:02','text');
+
+
 COMMIT;
 
-select * from comment;
-select * from reply;
+
+SELECT *
+FROM COMMENT;
+
+
+SELECT *
+FROM REPLY;
