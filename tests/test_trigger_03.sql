@@ -11,7 +11,7 @@ INSERT into shop values
 INSERT into sells values 
     (1, 1, '2022-01-01 01:01:01', 1, 1);
 INSERT into coupon_batch values
-    (1, '2022-01-01', '2022-01-01', 1, 1);
+    (1, '2022-01-01', '2022-01-01', 1, 1.1);
 INSERT into issued_coupon values
     (1, 1);
 
@@ -21,12 +21,7 @@ INSERT INTO orders values
     (1,1,1,'address',0);
 SELECT * from orders;
 
--- cannot insert
-INSERT INTO orders values
-    (1,1,1,'address',1);
-SELECT * from orders;
-
 -- can insert
 INSERT INTO orders values
-    (1,1,1,'address',1.1);
+    (1,1,1,'address',0.1);
 SELECT * from orders;
